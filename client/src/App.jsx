@@ -350,21 +350,27 @@ export default function App() {
       />
 
       {/* Main Content Workspace */}
-      <main style={{ flex: 1, display: 'flex', overflow: 'hidden', padding: '1rem 1.5rem', gap: '1.5rem' }}>
+      <main className="workspace-main">
         
         {/* Full Preview Mode */}
         {activeView === 'preview' ? (
-          <div style={{ flex: 1, height: '100%', overflowY: 'auto', borderRadius: 16 }}>
-            <PreviewPane portfolio={portfolio} />
+          <div className="workspace-pane glass-card" style={{ flex: 1 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+              <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>Full Portfolio Preview</span>
+              <span>Template: <strong style={{ color: 'var(--accent-primary)', textTransform: 'capitalize' }}>{portfolio.template || 'minimal'}</strong></span>
+            </div>
+            <div style={{ flex: 1, overflowY: 'auto', borderRadius: 12 }}>
+              <PreviewPane portfolio={portfolio} />
+            </div>
           </div>
         ) : (
           /* Split View: Left Editor, Right Live Preview */
           <>
-            <div className="glass-card" style={{ flex: '1 1 50%', height: '100%', padding: '1.25rem', overflow: 'hidden' }}>
+            <div className="workspace-pane glass-card">
               <EditorView portfolio={portfolio} onChange={handlePortfolioChange} />
             </div>
 
-            <div className="glass-card" style={{ flex: '1 1 50%', height: '100%', padding: '1.25rem', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <div className="workspace-pane glass-card desktop-only-split">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                 <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>Live Canvas Preview</span>
                 <span>Template: <strong style={{ color: 'var(--accent-primary)', textTransform: 'capitalize' }}>{portfolio.template || 'minimal'}</strong></span>

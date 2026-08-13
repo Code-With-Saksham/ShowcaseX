@@ -23,43 +23,43 @@ export default function LandingPage({ onOpenLogin, onOpenRegister, onGuestDemo }
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', color: '#fff' }}>
       
       {/* Landing Header / Navbar */}
-      <header className="glass" style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid var(--border-color)', padding: '1rem 2rem' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <header className="glass" style={{ position: 'sticky', top: 0, zIndex: 100, borderBottom: '1px solid var(--border-color)', padding: '0.75rem 1rem' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.75rem' }}>
           
           {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <img 
               src="/showcasex-logo.svg" 
               alt="ShowcaseX Logo" 
-              style={{ width: 40, height: 40, borderRadius: 10, filter: 'drop-shadow(0 0 10px rgba(235, 50, 55, 0.5))' }} 
+              style={{ width: 34, height: 34, borderRadius: 8, filter: 'drop-shadow(0 0 10px rgba(235, 50, 55, 0.5))' }} 
             />
-            <span style={{ fontWeight: 800, fontSize: '1.4rem', letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #ffffff 0%, #eb3237 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            <span style={{ fontWeight: 800, fontSize: '1.25rem', letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #ffffff 0%, #eb3237 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               ShowcaseX
             </span>
           </div>
 
           {/* Quick Nav Links */}
-          <nav style={{ display: 'flex', gap: '2rem', fontSize: '0.9rem', color: 'var(--text-muted)' }}>
+          <nav className="desktop-only-split" style={{ display: 'flex', gap: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
             <a href="#features" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Features</a>
             <a href="#templates" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>Templates</a>
             <a href="#how-it-works" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}>How it Works</a>
           </nav>
 
           {/* Auth CTA Buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <button 
               onClick={onOpenLogin} 
               className="btn btn-secondary btn-sm"
-              style={{ padding: '0.5rem 1.1rem' }}
+              style={{ padding: '0.4rem 0.85rem' }}
             >
-              <LogIn size={15} /> Log In
+              <LogIn size={14} /> Log In
             </button>
             <button 
               onClick={onOpenRegister} 
               className="btn btn-primary btn-sm"
-              style={{ padding: '0.5rem 1.25rem', background: 'linear-gradient(135deg, #eb3237 0%, #dc2626 100%)', boxShadow: '0 4px 15px rgba(235,50,55,0.4)' }}
+              style={{ padding: '0.4rem 1rem', background: 'linear-gradient(135deg, #eb3237 0%, #dc2626 100%)', boxShadow: '0 4px 15px rgba(235,50,55,0.4)' }}
             >
-              <UserPlus size={15} /> Register Free
+              <UserPlus size={14} /> Register Free
             </button>
           </div>
 
@@ -67,16 +67,16 @@ export default function LandingPage({ onOpenLogin, onOpenRegister, onGuestDemo }
       </header>
 
       {/* Hero Section */}
-      <section style={{ padding: '5rem 1.5rem 4rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ padding: '3.5rem 1rem 3rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', position: 'relative', zIndex: 2 }}>
           
           {/* Badge */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(235, 50, 55, 0.12)', border: '1px solid rgba(235, 50, 55, 0.3)', padding: '0.4rem 1rem', borderRadius: 30, fontSize: '0.85rem', color: '#f87171', marginBottom: '1.5rem' }}>
-            <Sparkles size={16} /> Next-Gen Developer Portfolio Builder
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(235, 50, 55, 0.12)', border: '1px solid rgba(235, 50, 55, 0.3)', padding: '0.35rem 0.85rem', borderRadius: 30, fontSize: '0.8rem', color: '#f87171', marginBottom: '1.25rem' }}>
+            <Sparkles size={14} /> Next-Gen Developer Portfolio Builder
           </div>
 
           {/* Main Title */}
-          <h1 style={{ fontSize: '3.5rem', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.03em', marginBottom: '1.25rem' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontWeight: 800, lineHeight: 1.15, letterSpacing: '-0.03em', marginBottom: '1rem' }}>
             Build & Export Your Developer Portfolio <br />
             <span style={{ background: 'linear-gradient(135deg, #ffffff 0%, #eb3237 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
               In Minutes, Not Hours.

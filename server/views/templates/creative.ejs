@@ -114,7 +114,17 @@
     .timeline-date { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
     .timeline-desc { color: var(--text-muted); font-size: 0.95rem; }
 
-    footer { text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 2rem 0; border-top: 1px solid var(--border); margin-top: 3rem; }
+    footer { text-align: center; color: var(--text-muted); font-size: 0.9rem; padding-top: 2rem; margin-top: 4rem; }
+
+    @media (max-width: 768px) {
+      body { padding: 1.5rem 0.75rem; }
+      .hero { padding: 2rem 1rem; border-radius: 16px; margin-bottom: 1.5rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero-tagline { font-size: 1.1rem; }
+      .hero-avatar { width: 100px; height: 100px; }
+      .section-card { padding: 1.5rem 1rem; border-radius: 16px; margin-bottom: 1.5rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
