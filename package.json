@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-maker",
+  "version": "1.0.0",
+  "description": "Premium Full-Stack Portfolio Maker Application",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "node server/server.js",
+    "client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm run build --prefix client"
+  },
+  "keywords": ["portfolio", "builder", "react", "express", "ejs", "zip", "export"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

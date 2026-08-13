@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= p.personal?.fullName || 'Dev' %> ~ terminal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: <%= p.customTheme?.accentColor || '#10b981' %>;
+      --bg: #0d1117;
+      --card-bg: #161b22;
+      --terminal-header: #21262d;
+      --text: #c9d1d9;
+      --text-muted: #8b949e;
+      --border: #30363d;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Fira Code', monospace; }
+    body { background-color: var(--bg); color: var(--text); padding: 2rem 1rem; line-height: 1.6; }
+    .terminal-window { max-width: 960px; margin: 0 auto; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    .terminal-bar { background: var(--terminal-header); padding: 0.75rem 1rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+    .dots { display: flex; gap: 8px; }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+    .term-title { font-size: 0.85rem; color: var(--text-muted); }
+
+    .terminal-body { padding: 2rem; }
+    .prompt { color: var(--accent); }
+    .command { color: #58a6ff; font-weight: 600; }
+    
+    header { margin-bottom: 3rem; }
+    .dev-header { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin-top: 1rem; }
+    .profile-img { width: 110px; height: 110px; border-radius: 12px; border: 2px solid var(--accent); object-fit: cover; }
+    .dev-info h1 { font-size: 2rem; font-family: 'Inter', sans-serif; font-weight: 700; color: #f0f6fc; }
+    .dev-tagline { color: var(--accent); font-size: 1.1rem; margin: 0.25rem 0; }
+    .dev-bio { color: var(--text-muted); max-width: 600px; font-size: 0.95rem; font-family: 'Inter', sans-serif; }
+
+    .sec-cmd { margin: 2rem 0 1rem; font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px dashed var(--border); padding-bottom: 0.5rem; }
+    
+    .skills-flex { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .skill-tag { background: #21262d; border: 1px solid var(--border); color: #e6edf3; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; }
+    .skill-tag span { color: var(--accent); font-weight: bold; }
+
+    .grid-projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+    .card { background: #0d1117; border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; transition: border-color 0.2s; }
+    .card:hover { border-color: var(--accent); }
+    .card-title { font-size: 1.1rem; color: #58a6ff; font-weight: 600; margin-bottom: 0.5rem; }
+    .card-desc { color: var(--text-muted); font-size: 0.85rem; font-family: 'Inter', sans-serif; margin-bottom: 1rem; }
+    .card-links a { color: var(--accent); text-decoration: none; font-size: 0.85rem; margin-right: 1rem; }
+
+    .social-links { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+    .social-links a { color: var(--accent); text-decoration: none; font-size: 0.9rem; background: #21262d; padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid var(--border); }
+    .social-links a:hover { background: var(--accent); color: #0d1117; }
+  </style>
+</head>
+<body>
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <div class="dots">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <div class="term-title">bash - <%= p.personal?.username || 'user' %>@portfolio ~ 80x24</div>
+      <div></div>
+    </div>
+    
+    <div class="terminal-body">
+      <header>
+        <div><span class="prompt">user@dev:~$</span> <span class="command">cat ./whoami.json</span></div>
+        <div class="dev-header">
+          <% if (p.personal?.profileImage) { %>
+            <img src="<%= p.personal.profileImage %>" alt="Profile" class="profile-img">
+          <% } %>
+          <div class="dev-info">
+            <h1><%= p.personal?.fullName || 'Developer' %></h1>
+            <div class="dev-tagline"><%= p.personal?.tagline %></div>
+            <p class="dev-bio"><%= p.personal?.bio %></p>
+            <div class="social-links">
+              <% if (p.social?.github) { %><a href="<%= p.social.github %>" target="_blank">github</a><% } %>
+              <% if (p.social?.linkedin) { %><a href="<%= p.social.linkedin %>" target="_blank">linkedin</a><% } %>
+              <% if (p.social?.email) { %><a href="mailto:<%= p.social.email %>">email</a><% } %>
+              <% if (p.personal?.resumeUrl) { %><a href="<%= p.personal.resumeUrl %>" target="_blank">resume.pdf</a><% } %>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <% if (p.skills && p.skills.length > 0) { %>
+      <section>
+        <div class="sec-cmd"><span class="prompt">user@dev:~$</span> <span class="command">list-skills --all</span></div>
+        <div class="skills-flex">
+          <% p.skills.forEach(s => { %>
+            <div class="skill-tag"><span>$</span> <%= s.name %> (<%= s.level || 'Expert' %>)</div>
+          <% }) %>
+        </div>
+      </section>
+      <% } %>
+
+      <% if (p.projects && p.projects.length > 0) { %>
+      <section>
+        <div class="sec-cmd"><span class="prompt">user@dev:~$</span> <span class="command">git log --projects</span></div>
+        <div class="grid-projects">
+          <% p.projects.forEach(pj => { %>
+            <div class="card">
+              <div class="card-title">📁 <%= pj.title %></div>
+              <div class="card-desc"><%= pj.description %></div>
+              <div class="card-links">
+                <% if (pj.githubUrl) { %><a href="<%= pj.githubUrl %>" target="_blank">[code]</a><% } %>
+                <% if (pj.liveUrl) { %><a href="<%= pj.liveUrl %>" target="_blank">[demo]</a><% } %>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </section>
+      <% } %>
+
+      <% if (p.experience && p.experience.length > 0) { %>
+      <section>
+        <div class="sec-cmd"><span class="prompt">user@dev:~$</span> <span class="command">cat ./work_history.log</span></div>
+        <% p.experience.forEach(e => { %>
+          <div style="margin-bottom: 1rem; padding-left: 1rem; border-left: 2px solid var(--accent);">
+            <div style="color: #f0f6fc; font-weight: 600;"><%= e.role %> @ <%= e.company %></div>
+            <div style="color: var(--text-muted); font-size: 0.8rem;"><%= e.startDate %> - <%= e.current ? 'PRESENT' : e.endDate %></div>
+            <div style="font-family: 'Inter', sans-serif; font-size: 0.9rem; margin-top: 0.25rem;"><%= e.description %></div>
+          </div>
+        <% }) %>
+      </section>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

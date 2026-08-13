@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= p.personal?.fullName || 'Portfolio' %> | Creative Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: <%= p.customTheme?.accentColor || '#ec4899' %>;
+      --bg: <%= p.customTheme?.darkTheme ? '#0f172a' : '#f8fafc' %>;
+      --card-bg: <%= p.customTheme?.darkTheme ? 'rgba(30, 41, 59, 0.7)' : 'rgba(255, 255, 255, 0.85)' %>;
+      --text: <%= p.customTheme?.darkTheme ? '#f8fafc' : '#0f172a' %>;
+      --text-muted: <%= p.customTheme?.darkTheme ? '#94a3b8' : '#64748b' %>;
+      --border: <%= p.customTheme?.darkTheme ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.08)' %>;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+    body {
+      background: var(--bg);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(235, 50, 55, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, var(--accent) 0px, transparent 50%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 3rem 1.5rem;
+      line-height: 1.6;
+    }
+    .wrapper { max-width: 1000px; margin: 0 auto; }
+    
+    .hero {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+    .hero-avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 30px var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-tagline { font-size: 1.3rem; color: var(--accent); font-weight: 600; margin-bottom: 1rem; }
+    .hero-bio { color: var(--text-muted); max-width: 650px; margin: 0 auto 2rem; font-size: 1.05rem; }
+    
+    .social-pills { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+    .pill {
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .pill:hover { background: var(--accent); border-color: var(--accent); color: #ffffff; transform: translateY(-3px); box-shadow: 0 10px 20px var(--accent); }
+
+    .section-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+    h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text); display: flex; align-items: center; gap: 0.5rem; }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .badge {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1.2rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .card-img { width: 100%; height: 160px; object-fit: cover; }
+    .card-body { padding: 1.25rem; }
+    .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text); }
+    .card-text { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .card-tag { font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 6px; background: rgba(255,255,255,0.08); color: var(--text-muted); }
+    .card-links a { color: var(--accent); font-weight: 600; text-decoration: none; margin-right: 1rem; font-size: 0.9rem; }
+
+    .timeline-item { position: relative; padding-left: 1.5rem; border-left: 2px solid var(--border); margin-bottom: 1.5rem; }
+    .timeline-item::before { content: ''; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+    .timeline-title { font-size: 1.15rem; font-weight: 700; }
+    .timeline-subtitle { color: var(--accent); font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .timeline-date { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .timeline-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+    footer { text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 2rem 0; border-top: 1px solid var(--border); margin-top: 3rem; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    
+    <!-- Hero Header -->
+    <div class="hero">
+      <% if (p.personal?.profileImage) { %>
+        <img src="<%= p.personal.profileImage %>" alt="<%= p.personal?.fullName %>" class="hero-avatar">
+      <% } %>
+      <h1><%= p.personal?.fullName || 'Creative Developer' %></h1>
+      <% if (p.personal?.tagline) { %>
+        <div class="hero-tagline"><%= p.personal.tagline %></div>
+      <% } %>
+      <% if (p.personal?.bio) { %>
+        <p class="hero-bio"><%= p.personal.bio %></p>
+      <% } %>
+      <div class="social-pills">
+        <% if (p.social?.github) { %><a href="<%= p.social.github %>" target="_blank" class="pill">GitHub</a><% } %>
+        <% if (p.social?.linkedin) { %><a href="<%= p.social.linkedin %>" target="_blank" class="pill">LinkedIn</a><% } %>
+        <% if (p.social?.twitter) { %><a href="<%= p.social.twitter %>" target="_blank" class="pill">Twitter / X</a><% } %>
+        <% if (p.social?.email) { %><a href="mailto:<%= p.social.email %>" class="pill">Email</a><% } %>
+        <% if (p.social?.website) { %><a href="<%= p.social.website %>" target="_blank" class="pill">Website</a><% } %>
+        <% if (p.personal?.resumeUrl) { %><a href="<%= p.personal.resumeUrl %>" target="_blank" class="pill" style="background: var(--accent); color: #ffffff;">Download Resume</a><% } %>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <% if (p.skills && p.skills.length > 0) { %>
+    <div class="section-card">
+      <h2>Skills & Tech Stack</h2>
+      <div class="badges">
+        <% p.skills.forEach(s => { %>
+          <div class="badge">
+            <div class="badge-dot"></div>
+            <span><%= s.name %></span>
+            <% if (s.level) { %>
+              <span style="font-size: 0.75rem; color: var(--accent); opacity: 0.8; margin-left: 4px;">(<%= s.level %>)</span>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- Featured Works -->
+    <% if (p.projects && p.projects.length > 0) { %>
+    <div class="section-card">
+      <h2>Featured Projects</h2>
+      <div class="grid">
+        <% p.projects.forEach(project => { %>
+          <div class="card">
+            <% if (project.image) { %>
+              <img src="<%= project.image %>" class="card-img" alt="<%= project.title %>">
+            <% } %>
+            <div class="card-body">
+              <div class="card-title"><%= project.title %></div>
+              <p class="card-text"><%= project.description %></p>
+              <% if (project.techStack && project.techStack.length > 0) { %>
+                <div class="card-tags">
+                  <% project.techStack.forEach(t => { %>
+                    <span class="card-tag"><%= t %></span>
+                  <% }) %>
+                </div>
+              <% } %>
+              <div class="card-links">
+                <% if (project.githubUrl) { %><a href="<%= project.githubUrl %>" target="_blank">Code →</a><% } %>
+                <% if (project.liveUrl) { %><a href="<%= project.liveUrl %>" target="_blank">Live Demo →</a><% } %>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+    <% } %>
+
+    <!-- Work Experience -->
+    <% if (p.experience && p.experience.length > 0) { %>
+    <div class="section-card">
+      <h2>Work Experience</h2>
+      <% p.experience.forEach(exp => { %>
+        <div class="timeline-item">
+          <div class="timeline-title"><%= exp.role %></div>
+          <div class="timeline-subtitle"><%= exp.company %> <% if (exp.location) { %> • <%= exp.location %><% } %></div>
+          <div class="timeline-date"><%= exp.startDate %> - <%= exp.current ? 'Present' : exp.endDate %></div>
+          <div class="timeline-desc"><%= exp.description %></div>
+        </div>
+      <% }) %>
+    </div>
+    <% } %>
+
+    <!-- Education -->
+    <% if (p.education && p.education.length > 0) { %>
+    <div class="section-card">
+      <h2>Education</h2>
+      <% p.education.forEach(edu => { %>
+        <div class="timeline-item">
+          <div class="timeline-title"><%= edu.degree %> in <%= edu.field %></div>
+          <div class="timeline-subtitle"><%= edu.institution %></div>
+          <div class="timeline-date"><%= edu.startDate %> - <%= edu.endDate %></div>
+          <div class="timeline-desc"><%= edu.description %></div>
+        </div>
+      <% }) %>
+    </div>
+    <% } %>
+
+    <footer>
+      <p>© <%= new Date().getFullYear() %> <%= p.personal?.fullName || 'Portfolio' %>. Crafted with Portfolio Maker.</p>
+    </footer>
+
+  </div>
+</body>
+</html>
