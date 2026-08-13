@@ -8,8 +8,7 @@
     "server": "cd server && node server.js",
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
-    "postinstall": "npm run build"
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client"
   },
   "engines": {
     "node": ">=18.0.0"
