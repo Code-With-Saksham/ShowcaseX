@@ -4,11 +4,15 @@
   "description": "Premium Full-Stack Portfolio Maker Application",
   "main": "server/server.js",
   "scripts": {
-    "start": "node server/server.js",
-    "server": "node server/server.js",
+    "start": "cd server && node server.js",
+    "server": "cd server && node server.js",
     "client": "npm run dev --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "npm run build --prefix client"
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "keywords": ["portfolio", "builder", "react", "express", "ejs", "zip", "export"],
   "author": "",

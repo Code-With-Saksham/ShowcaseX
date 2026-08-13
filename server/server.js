@@ -33,6 +33,17 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// --- Serve React Client in Production ---
+if (process.env.NODE_ENV === 'production') {
+  const clientDistPath = path.join(__dirname, '..', 'client', 'dist');
+  app.use(express.static(clientDistPath));
+
+  // Catch-all: send index.html for any non-API route (React Router handles routing)
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientDistPath, 'index.html'));
+  });
+}
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error('[Server Error]', err);
